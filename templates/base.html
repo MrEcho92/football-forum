@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta content="{%block meta_description%} ViewingSports - ViewingSports is the best online community dedicated to African football fans. {% endblock%}" name="description">
+
+    <title>{% block title %}  ViewingSports {% endblock %}</title>
+
+    <link href="{% static 'picture/icon.png'%}" rel="icon">
+
+    <!--Google font-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Staatliches&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700&display=swap" rel="stylesheet">
+
+    <!--bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- Alternative to Bootstrap 3 Glyphicons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Project CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+  </head>
+  <body>
+
+<!--nav start-->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="{% url 'forum:post_list' %}">ViewingSports</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item ">
+              <a class="nav-link" href="{% url 'forum:post_list' %}"><span class="iconify" data-icon="codicon:comment-discussion" data-inline="false"></span> Discussions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'live:live-scores'%}">Live Matches</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'news:news_list'%}">News <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+
+          <div class="mr-auto"></div>
+          <ul class="navbar-nav">
+            {% if user.is_authenticated and request.user.username == user.username %}
+            <li class="nav-item d-none d-lg-block">
+              <img class="rounded-circle nav-avatar" src="{{ request.user.userprofile.profile_pic.url }}" alt="">
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account:dashboard' slug=user.username %}"> Profile </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-button" role="button" href="{% url 'forum:post_new' %}">Write a Post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'notification:show-notifications'%}">Notifications
+              {% if count_notifications %} <span class="badge badge-light">{{ count_notifications }}</span>{% endif %}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-button" role="button"  href="{% url 'account:logout'%}">Log Out</a>
+            </li>
+          </ul>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link nav-button" role="button" href="{% url 'account:login' %}">Log In </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link signup-button" role="button" href="{% url 'account:signup' %}">Sign Up</a>
+            </li>
+          {% endif %}
+        </div>
+      </nav>
+<!--nav end-->
+<div class="page-wrapper">
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+<!--footer start-->
+      <footer class="pt-4 my-md-5 pt-md-5 border-top footer">
+        <div class="container">
+         <div class="row">
+           <div class="col-lg-6 col-md-6 col-sm-12">
+             <h1 class="footer-header" >ViewingSports</h1>
+             <p class="footer-motto"> FAN CLUB. ONE COMMUNITY. REAL FAN. </p>
+             <p class="footer-about">We are the best online community for football discussions, news,  live scores & matches and trends.</p>
+
+             <div class="d-flex flex-row bd-highlight mb-3 social-media-footer">
+               <div class="p-2 bd-highlight"><a href="https://www.facebook.com/01Livestreaming/"><img src="https://img.icons8.com/color/48/000000/facebook-new.png"/></a></div>
+               <div class="p-2 bd-highlight"><a href="https://twitter.com/01Livestreaming"><img src="https://img.icons8.com/fluent/48/000000/twitter.png"/></a></div>
+               <div class="p-2 bd-highlight"><a href="#"><img src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/></a></div>
+               <div class="p-2 bd-highlight"><a href="#"><img src="https://img.icons8.com/color/48/000000/whatsapp.png"/></a></div>
+             </div>
+
+               </div>
+                 <div class="col-lg-6 col-md-6 col-sm-12">
+                   <div class="row">
+                     <div class="col-lg-4">
+                       <h5>About</h5>
+                         <ul class="list-unstyled text-small">
+                          <li><a class="text-muted" href="{% url 'website:about-us'%}">About</a></li>
+                           <li><a class="text-muted" href="{% url 'news:news_list'%}">News</a></li>
+                           <li><a class="text-muted" href="{% url 'live:live-scores'%}">Live Matches</a></li>
+                           <li><a class="text-muted" href="{% url 'forum:post_list' %}">Discussions</a></li>
+                         </ul>
+                     </div>
+                     <div class="col-lg-4">
+                       <h5>Get in touch</h5>
+                       <ul class="list-unstyled text-small">
+                         <li><a class="text-muted" href="{% url 'website:contact'%}">Contact us</a></li>
+                         <li><a class="text-muted" href="{% url 'website:contact'%}">Advertise with us</a></li>
+                       </ul>
+                     </div>
+                     <div class="col-lg-4">
+                       <h5>Legal</h5>
+                       <ul class="list-unstyled text-small">
+                         <li><a class="text-muted" href="{% url 'website:policy'%}">Privacy Policy</a></li>
+                         <li><a class="text-muted" href="{% url 'website:terms'%}">Terms of use</a></li>
+                         <li><a class="text-muted" href="{% url 'forum:guidelines'%}">Community Guidelines</a></li>
+                       </ul>
+                     </div>
+                   </div>
+                 </div>
+             </div>
+            </div>
+          <br>
+          <div class="container copyright">
+            <p>Copyright &copy 2020; ViewingSports - All Rights Reserved</p>
+          </div>
+       </footer>
+<!-- Footer end-->
+
+      <!-- Go to www.addthis.com/dashboard to customize your tools -->
+      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f66fac95cae52dc"></script>
+
+
+      <!-- Icons Entypo+ via https://iconify.design/icon-sets/entypo/install.html -->
+      <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
+      <!--JS files, jQuery (get jQuery from https://jquery.com/download/, Do not use Slim version of jquery bcos some modules excluded e.g toggle ), Popper.js, and bootstrap JS   -->
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+      <!-- MY JSS -->
+      <script src="{% static 'js/main.js'%}"></script>
+      <script>
+      {% block java %}
+        //@post_detail: //
+      {% endblock %}
+      </script>
+    </body>
+  </html>

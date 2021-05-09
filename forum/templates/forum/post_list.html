@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block title %} Football Discussions {% endblock%}
+{% block meta_description %} ViewingSports - Join best online football discussions, engage in hot posts & conversations and offer your options.  {% endblock %}
+{% block content %}
+
+<div class="container post-list">
+  {% if user.is_authenticated %}
+      <div class="row search">
+        <div class="form">
+            <form method="GET" class="form-inline">
+              {{myFilter.form|crispy}}
+              <input type="submit" class="searchbtn" name="" value="Search">
+            </form>
+        </div>
+      </div>
+  {% endif %}
+<br>
+
+  <div class="row header">
+
+    <div class="d-none d-md-block col-lg-3 col-md-3 col-sm-12 sidebar-left">
+      {% if user.is_authenticated %}
+        <h3>Hello, {{ user.userprofile.first_name }}</h3>
+        <p class="pl-username">@{{user.username}}</p>
+      {% endif %}
+        <div class="d-flex flex-column bd-highlight mb-3 sidebar-left-1">
+          <div class="p-2 bd"><a href="{% if user.is_authenticated %}{% url 'forum:post_new' %}{% else %} {% url 'account:login'%} {% endif %}" class="post-listbtn">Write New Post</a></div>
+          {% if  not user.is_authenticated %}
+          <div class="p-2 bd-highlight"><a href="{% url 'account:signup' %}"><span class="iconify" data-icon="clarity:sign-in-line" data-inline="false"></span> Sign In/Up</a></div>
+          {% endif %}
+          <div class="p-2 bd-highlight"><a href="{% url 'website:about-us'%}"><span class="iconify" data-icon="flat-color-icons:about" data-inline="false"></span> About</a></div>
+          <div class="p-2 bd-highlight"><a href="{% url 'website:contact'%}"><span class="iconify" data-icon="flat-color-icons:contacts" data-inline="false"></span> Contact</a></div>
+          <div class="p-2 bd-highlight"><a href="{% url 'forum:guidelines'%}"><span class="iconify" data-icon="bi:terminal" data-inline="false" style="color: red;"></span> Community Guidelines</a></div>
+          <div class="p-2 bd-highlight"><a href="{% url 'website:policy'%}"><span class="iconify" data-icon="flat-color-icons:privacy" data-inline="false"></span> Privacy Policy</a></div>
+
+        </div>
+
+        <div class="d-flex flex-row bd-highlight mb-3 sidebar-left-2">
+          <div class="p-2 bd-highlight"><a href="https://www.facebook.com/01Livestreaming/"><img src="https://img.icons8.com/material/24/000000/facebook--v1.png"/></a></div>
+          <div class="p-2 bd-highlight"><a href="https://twitter.com/01Livestreaming"><img src="https://img.icons8.com/android/24/000000/twitter.png"/></a></div>
+          <div class="p-2 bd-highlight"><a href="#"><img src="https://img.icons8.com/material-rounded/30/000000/instagram-new.png"/></a></div>
+          <div class="p-2 bd-highlight"><a href="#"><img src="https://img.icons8.com/material-rounded/24/000000/whatsapp.png"/></a></div>
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb shadow-sm">
+          <div class="d-block d-sm-none dropdown mr-3">
+            <a class="dropdown-toggle" href="#" role="" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-menu-button-wide" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v2A1.5 1.5 0 0 1 14.5 5h-13A1.5 1.5 0 0 1 0 3.5v-2zM1.5 1a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-13zM14 7H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM2 6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H2z"/>
+                <path fill-rule="evenodd" d="M15 11H1v-1h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-10a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
+                <path d="M12.823 2.823l-.396-.396A.25.25 0 0 1 12.604 2h.792a.25.25 0 0 1 .177.427l-.396.396a.25.25 0 0 1-.354 0z"/>
+              </svg>
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="{% if user.is_authenticated %}{% url 'forum:post_new' %}{% else %} {% url 'account:login'%} {% endif %}" class="post-listbtn"> Write New Post</a>
+              {% if  not user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'account:signup' %}"><span class="iconify" data-icon="clarity:sign-in-line" data-inline="false"></span> Log In/Sign Up</a>
+              {% endif %}
+              <a class="dropdown-item" href="{% url 'website:about-us'%}"><span class="iconify" data-icon="flat-color-icons:about" data-inline="false"></span> About</a>
+              <a class="dropdown-item" href="{% url 'website:contact'%}"><span class="iconify" data-icon="flat-color-icons:contacts" data-inline="false"></span> Contact</a>
+              <a class="dropdown-item" href="{% url 'forum:guidelines'%}"><span class="iconify" data-icon="bi:terminal" data-inline="false" style="color: red;"></span> Community Guidelines</a>
+              <a class="dropdown-item" href="{% url 'website:policy'%}"><span class="iconify" data-icon="flat-color-icons:privacy" data-inline="false"></span> Privacy Policy</a>
+            </div>
+          </div>
+          <li class="breadcrumb-item active" aria-current="page">Posts</li>
+          <li class="breadcrumb-item"><a href="{% url 'forum:post_list'%}">Latest</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'forum:trending'%}">Trending</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'forum:mostcomment'%}" data-toggle="tooltip" title="Most Commented">Hot</a></li>
+        </ol>
+      </nav>
+
+      {% for post in posts %}
+        <div class="card mb-3 posts">
+        {% if post.image %}
+          <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <a href="{% url 'account:dashboard' slug=post.author.username %}"><img class="rounded-circle avatar" src="{{ post.author.userprofile.profile_pic.url }}" alt=""></a>
+              <a href="{% url 'account:dashboard' slug=post.author.username %}">{{ post.author|capfirst }}</a>
+              <h2 class="card-title"><a href="{% url 'forum:post_detail' pk=post.pk slug=post.slug %}">{{ post.title }}</a></h2>
+              <a href="{% url 'forum:post_detail' pk=post.pk slug=post.slug %}"><img src="https://img.icons8.com/metro/20/000000/comments.png"/> Comment{{post.comments.count|pluralize}}: {{ post.comments.count }}  </a> |
+              <a href="#">View{{ post.view_count|pluralize }}: {{ post.view_count }} </a> |
+              <a href="#">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                </svg>
+                 Like{{post.likes.count|pluralize}}: {{ post.likes.count }} </a>
+              <div class="date">
+                <p class="card-text"><small class="text-muted">Posted: {{ post.created_date|naturaltime }}</small></p>
+              </div>
+            </div>
+
+            {% else %}
+              <div class="card-body">
+                <img class="rounded-circle avatar" src="{{ post.author.userprofile.profile_pic.url }}" alt="">
+                <a href="{% url 'account:dashboard' slug=post.author.username %}">{{ post.author|capfirst }}</a>
+                <h2 class="card-title"><a href="{% url 'forum:post_detail' pk=post.pk slug=post.slug %}">{{ post.title  }}</a></h2>
+                <a href="{% url 'forum:post_detail' pk=post.pk slug=post.slug %}"><img src="https://img.icons8.com/metro/20/000000/comments.png"/> Comment{{post.comments.count|pluralize}}: {{ post.comments.count }}</a> |
+                <a href="#">View{{ post.view_count|pluralize }}: {{ post.view_count }} </a> |
+                <a href="#">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                  </svg>
+                  Like{{post.likes.count|pluralize}}: {{ post.likes.count }} </a>
+                <div class="date">
+                  <p class="card-text"><small class="text-muted">Posted: {{ post.created_date|naturaltime }}</small></p>
+                </div>
+              </div>
+              {% endif %}
+        </div>
+        {% empty %}
+          <p class="text-center"> No post found. </p>
+        {% endfor %}
+      </div>
+      <div class="d-none d-lg-block col-lg-3 col-md-3 col-sm-12 sidebar-right">
+        <div class="">
+          <li class="list-group-item title">Latest News</li>
+          {% for new in news %}
+          <li class="list-group-item sidebard-news"><a class="" href="{% url 'news:news_detail' new.slug  %}">{{ new.title }}</a></li>
+          {% empty %}
+          <li class="list-group-item sidebard-news">No news found.</li>
+          {% endfor %}
+        </div>
+        <br>
+        <div class="sidebard-live">
+          <li class="list-group-item title">Live Match Scores</li>
+          <li class="list-group-item sidebard-news">No match update.</li>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+    <script>
+      document.getElementById("id_title").placeholder = "Search...";
+    </script>
+{% endblock %}

@@ -1,0 +1,18 @@
+<!--404.html-->
+{% extends 'base.html' %}
+{% block title %} ViewingSports 404page {%endblock%}
+{% block meta_description %} ViewingSports 404page {% endblock %}
+{% block content %}
+
+
+  <div class="d-flex justify-content-center password-reset">
+      <div class="card shadow" style="width: 30rem;">
+        <div class="card-body">
+          <h2 class="card-title">Page Not Found</h2>
+          <p style="font-size:1.2rem;">The page you are looking for does not exist. Please go back to our home page by clicking link.</p>
+          <a class="btn btn-primary" role="button" href="{% url 'forum:post_list' %}">Go Home</a>
+        </div>
+      </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% autoescape off %}
+
+Hi {{ user.username|capfirst }},
+
+Hope you are well.
+
+Please click on the link below to confirm your registration:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+Thank you!
+
+Best regards,
+
+ViewingSport Team
+
+{% endautoescape %}

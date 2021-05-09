@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block title %} Notifications {%endblock%}
+{% block meta_description %} ViewingSports Notification {% endblock %}
+{% block content %}
+
+    <div class="container notification">
+
+      <div class="header">
+        <h1>Notifications</h1>
+      </div>
+
+      {% for notification in notifications %}
+      {% if notification.notification_type == 2 %}
+
+      <div class="card w-75 mb-2">
+        <div class="card-body">
+          <div class="media">
+            {% if notification.sender.userprofile.profile_pic %}
+            <img src="{{ notification.sender.userprofile.profile_pic.url }}" class="mr-3" alt="">
+            {% else %}
+              <img src="" alt="Placeholder image">
+              {% endif %}
+              <div class="media-body">
+                <h5 class="mt-0"><strong>{{ notification.sender.userprofile.first_name }} {{ notification.sender.userprofile.last_name }}</strong> <small>@{{ notification.sender.username }}</small></h5>
+                commented <a href="{{ notification.post.get_absolute_url }}">{{ notification.text_preview }}</a>
+              </div>
+              <strong><small>{{ notification.date|naturaltime }}</small></strong>
+              <div class="">
+                <a href="{% url 'notification:delete-notification' pk=notification.pk %}"><span class="iconify" data-icon="entypo:cross" data-inline="false" style="color: black;" data-width="30" data-height="30"></span></a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        {% endif %}
+
+        {% if notification.notification_type == 1 %}
+
+        <div class="card w-75 mb-2">
+          <div class="card-body">
+            <div class="media">
+              {% if notification.sender.userprofile.profile_pic %}
+              <img src="{{ notification.sender.userprofile.profile_pic.url }}" class="mr-3" alt="Placeholder image">
+              {% else %}
+                <img src="" alt="Placeholder image">
+                {% endif %}
+                <div class="media-body">
+                  <h5 class="mt-0"><strong>{{ notification.sender.userprofile.first_name }} {{ notification.sender.userprofile.last_name }}</strong> <small>@{{ notification.sender.username }}</small></h5>
+                  liked your <a href="{{ notification.post.get_absolute_url }}">{{ notification.post}}</a>
+                </div>
+                <strong><small>{{ notification.date|naturaltime }}</small></strong>
+                <div class="">
+                  <a href="{% url 'notification:delete-notification' pk=notification.pk %}"><span class="iconify" data-icon="entypo:cross" data-inline="false" style="color: black;" data-width="30" data-height="30"></span></a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          {% endif %}
+
+        {% empty %}
+        <p>No new notification</p>
+
+        {% endfor %}
+      </div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Email Sent {%endblock%}
+{% block meta_description %} ViewingSports - Registration {% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-center password-done">
+    <div class="card shadow" style="width: 40rem;">
+      <div class="card-body">
+        <h5>Please confirm your email address to complete the registration.</h5>
+        <a class="password-btn" href="{% url 'account:login' %}">Login</a>
+        <a class="password-btn" href="{% url 'account:signup' %}">SignUp </a>
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Add comment {%endblock%}
+{% block meta_description %} ViewingSports Comment page {% endblock %}
+{% block content %}
+
+
+  <div class="container new-comment">
+    <h1 class="title">Add new comment </h1>
+    <p style="color: black; font-style: italic">Please note you must keep comments respectful and follow our <a class="guideline" href="{% url 'forum:guidelines'%}"> Community Guidelines</a>.</p>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="submitbtn">Submit</button>
+    </form>
+  </div>
+<script>
+  document.getElementById("id_text").placeholder = "Write your comment here...";
+</script>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Sign Up {%endblock%}
+{% block meta_description %} ViewingSports Sign Up Page {% endblock %}
+{% block content %}
+
+      <div class="d-flex justify-content-center signup-1">
+        <div class="d-flex flex-column bd-highlight mb-3">
+          <div class="p-2 bd-highlight text-center">
+            <h1 class="title">We are happy you are joining the best football community.</h1>
+            <br>
+            <div class="alert alert-warning" role="alert">
+              Read and abide to our  <a href="{% url 'forum:guidelines'%}" class="alert-link">Guidelines</a>.
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center signup">
+          <div class="card shadow-lg">
+              <h1 class="signup-title text-center">Sign Up..</h1>
+              <div class="card-body">
+                <form method="POST" class="form">
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  <button type="submit" class="password-btn">Sign Up</button>
+                </form>
+              </div>
+          </div>
+        </div>
+
+
+
+        <script>
+          document.getElementById("id_username").placeholder = "Username";
+          document.getElementById("id_email").placeholder = "Email address";
+          document.getElementById("id_password1").placeholder = "Password";
+          document.getElementById("id_password2").placeholder = "Password confirmation";
+        </script>
+
+{% endblock %}

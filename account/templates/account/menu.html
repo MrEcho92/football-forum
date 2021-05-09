@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+  {% if user.is_authenticated %}
+  <h1 class="menu-headline"> Menu</h1>
+  <ul>
+    <li><a href="{% url 'account:dashboard' slug=user.username %}">@ {{ user.username }}</a></li>
+    <li><a href="{% url 'forum:post_new' %}">Write a post</a></li>
+    <li><a href="#">Settings</a></li>
+    <li><a href="{% url 'account:logout'%}">Sign Out</a></li>
+  </ul>
+  {% endif %}
+
+</div>
+
+{% endblock %}

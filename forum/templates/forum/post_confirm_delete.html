@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container post-delete">
+  <form method="post">
+    {% csrf_token %}
+      <h2>Are you sure you want to delete <span class="post">"{{ post|truncatewords:20 }}"</span>?</h2>
+      <input type="submit" class="btn btn-outline-danger" value="Confirm">
+      <a class="btn btn-outline-secondary" href="{% url 'forum:post_detail' pk=post.pk slug=post.slug %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}

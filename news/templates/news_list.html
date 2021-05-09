@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block title %}  Football News, Live scores and matches - ViewingSports  {% endblock %}
+{% block meta_description %} Daily football news - Premier League, La Liga, Seria A, Champions League, Nigeria League and others {% endblock %}
+{% block content %}
+
+  <div class="news">
+
+    <div class="container text-center header">
+      <h2> FOOTBALL NEWS - LATEST</h2>
+    </div>
+
+        <div class="d-flex justify-content-center search">
+          <form method="GET" class="form-inline">
+            <div class="col-md-6 col-sm-12 form">
+              {{newsfilter.form|crispy}}
+            </div>
+            <div class="col-md-6 col-sm-12 search1">
+              <input type="submit" class="searchbtn" name="" value="Choose a League">
+            </div>
+          </form>
+        </div>
+
+
+        <div class="news-list">
+              {% for new in news %}
+              {#% if new.status == 1 %#}
+              <div class="card news-card">
+                <a href="{% url 'news:news_detail' new.slug  %}"><img class="news-image" src="{{ new.image_upload.url }}" class="card-img-top" alt="..."></a>
+                <div class="card-body">
+                  <a class="card-title" href="{% url 'news:news_detail' new.slug  %}">{{ new.title|title }}</a>
+                  <p class="author">Author: {{ new.author|capfirst }}</p>
+                  <p class="card-text"><small class="text-muted">{{ new.published_date|naturaltime }}</small></p>
+                </div>
+              </div>
+            {#% endif %#}
+
+            {% empty %}
+              <p class="text-center"> No news uploaded. </p>
+            {% endfor %}
+
+        </div>
+    <br>
+       <nav aria-label="Page navigation example">
+         <ul class="pagination justify-content-center">
+           <li class="page-item disabled">
+             <span class="step-links">
+                 {% if page_obj.has_previous %}
+                     <a href="?page=1">&laquo; First</a> |
+                     <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                 {% endif %}
+
+                 <span class="current pl-2 pr-2">
+                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                 </span>
+
+                 {% if page_obj.has_next %}
+                     <a href="?page={{ page_obj.next_page_number }}">Next</a> |
+                     <a href="?page={{ page_obj.paginator.num_pages }}">Last  &raquo;</a>
+                 {% endif %}
+             </span>
+           </li>
+         </ul>
+       </nav>
+  </div>
+
+
+
+{% endblock %}

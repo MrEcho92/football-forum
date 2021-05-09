@@ -1,0 +1,13 @@
+.env
+*/.env
+livestream/.env
+
+
+**/.env
+**/__pycache__/
+**/__pycache__
+**/migrations
+**/picture
+**/media
+db.sqlite3
+*.log

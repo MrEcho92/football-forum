@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Writing News {%endblock%}
+{% block meta_description %} ViewingSports News blog {% endblock %}
+{% block content %}
+
+  <div class="container create_news">
+    <h1 class="title">Writing Football News </h1>
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <button type="submit" class="submitbtn">Publish</button>
+    </form>
+  </div>
+
+{% endblock %}

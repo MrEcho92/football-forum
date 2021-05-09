@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} Edit Post here {%endblock%}
+{%block meta_description%} ViewingSports post update and edit {% endblock%}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container new-post">
+  <h1>New post</h1>
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="savebtn">Publish</button>
+    </form>
+    <br>
+    <div class="newpost-guide pt-md-3 border-top">
+      <h3>Guidelines</h3>
+      <ul>
+        <li><p>Note only football content is allowed.</p></li>
+        <li><p>Post title to be short but compelling! e.g. Who is the best player in Premier League?</p></li>
+        <li><p>Your content to describe your point</p></li>
+        <li><p>Avoid using offensive language</p></li>
+      </ul>
+    </div>
+</div>
+
+<script>
+  document.getElementById("id_title").placeholder = "New post title here...";
+  document.getElementById("id_text").placeholder = "Write your post content here...";
+</script>
+{% endblock %}

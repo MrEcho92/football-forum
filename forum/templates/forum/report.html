@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Report Comment{%endblock%}
+{%block meta_description%} ViewingSports - report comments, tell us why you find this comment offensive. {% endblock%}
+{% block content %}
+
+
+<div class="container report">
+  <h1>Tell us why you are reporting</h1>
+  <form method="POST" class="post-form">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="savebtn">Submit</button>
+  </form>
+</div>
+<script>
+  document.getElementById("id_message").placeholder = "Write your report here...";
+</script>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} Live Scores and Matches {%endblock%}
+{% block meta_description %} ViewingSports - Live scores, matches and streaming services  {% endblock %}
+{% block content %}
+
+    <div class="container fixture">
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+          <h1 class="title">Live Match Scores & Streaming COMING SOON</h1>
+          <p class="card-text">We'll be launching live match scores and streaming services of best top football leagues in the world soon. Enter your email address below to stay up
+          to date. A number of our loyal supporters will be selected to be part of our Beta Community to try the services before it offically launches.</p>
+          <p class="card-text">Don't miss out!</p>
+          <br>
+          <p class="card-text">Join discussions with other football fans and check out our latest football stories</p>
+
+          <p class="link"><a class="card-link" href="{% url 'forum:post_list'%}">Discussions</a><a class="card-link" href="{% url 'news:news_list'%}">News</a></p>
+          <br>
+          <div class="container newsletter">
+            <div class="form">
+              <form class="form" method="POST">
+                  {% csrf_token %}
+                  <input id="email" type="text" name="email" class='form-control' placeholder="Email address here" required>
+                  <input type="submit" name="submit" class="newsletterbtn" value="Subscribe">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{% endblock %}

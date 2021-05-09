@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} Update Profile - {{ user.username }} {%endblock%}
+{% block meta_description %} ViewingSports profile section {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+  <div class="container edit-profile">
+    {% if messages %}
+          {% for message in messages %}
+            <p class="message text-center">{{ message }}</p>
+          {% endfor %}
+    {% endif %}
+    <img class="profile-pic" src="{{ profile.profile_pic.url }}" alt="Not showing!!!!">
+    <p><a class="edit-btn" href="{% url 'account:password_change'%}">Password Change</a></p>
+    <p class="info">Username: @{{ user.username }}</p>
+    <p class="info">Email address: {{ user.email }} </p>
+
+    <form method="post"  enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="submit-btn">Update</button>
+    </form>
+
+  </div>
+
+  <script>
+    document.getElementById("id_bio").placeholder = "Tell us about yourself and your beloved football club...";
+
+  </script>
+{% endblock %}
